@@ -6,6 +6,16 @@ var sendJsonResponse = function(res, status, content) {
   res.json(content);
 };
 
+module.exports.sketchCreateOne = function(req, res) {
+  Sketch.create({name: req.body.name}, function(err, sketch) {
+    if(err) {
+      sendJsonResponse( res, 400, err );
+    } else {
+      sendJsonResponse( res, 201, sketch );
+    }
+  });
+};
+
 module.exports.sketchReadOne = function(req, res) {
   if(req.params && req.params.id) {
     Sketch
