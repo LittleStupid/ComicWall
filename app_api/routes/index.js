@@ -3,26 +3,11 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var Sketch = mongoose.model('Sketch');
+var ctrlSketches = require('../controllers/sketches');
 
-router.get('/sketches', function(req, res, next) {
-  Sketch.find(function(err,sketches) {
-    if(err) {
-      res.json({"err":"not find"});
-    } else {
-      res.json({sketches});
-    }
-  })
-});
+router.get('/sketches', ctrlSketches.sketchReadAll);
 
-router.get('/sketches/:id', function(req,res,next){
-  Sketch.findById(req.params.id,function(err,sketch){
-    if(err) {
-      res.json({"err":"not find"});
-    } else {
-      res.json({sketch});
-    }
-  });
-});
-
+router.get('/sketches/:id', ctrlSketches.sketchReadOne);
+router.delete('/sketches/:id', ctrlSketches.sketchDeleteOne);
 
 module.exports = router;
