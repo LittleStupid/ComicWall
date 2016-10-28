@@ -7,4 +7,5 @@ angular
     var vm = this;
 
     vm.imgid = $routeParams.img;
+    vm.header = '9.jpg';
   }
