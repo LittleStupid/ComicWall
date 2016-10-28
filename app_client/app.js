@@ -3,10 +3,18 @@ angular.module('ComicWallApp',['ngRoute']);
 function config($routeProvider){
   $routeProvider
     .when('/',{
-      templateUrl: 'test.html'
+      templateUrl: 'page/wall/wall.html'
+    })
+    .when('/about',{
+      templateUrl: 'about.html'
+    })
+    .when('/imgs/:img', {
+      templateUrl: 'page/img/img.html',
+      controller: 'imgCtrl',
+      controllerAs: 'vm'
     })
     .otherwise({
-      templateUrl: 'OtherTest.html'
+      templateUrl: 'other.html'
     });
 }
 

@@ -1,6 +1,11 @@
 <h3>Sketch Wall</h3>
 <div row>
-  <div ng-repeat="img in wallvm.imgs">
-    <img src="/img/{{img}}" alt="" class="col-xs-3">
+  <div ng-repeat="img in wallvm.imgs" class="col-xs-6 col-sm-4 col-md-3">
+    <a href={{wallvm.getImgUrl(img)}}>
+      <img src="/prevImg/{{img}}" alt="" class="img-thumbnail" height="180" width="180">
+    </a>
   </div>
 </div>
+
+
+<!-- {{wallvm.getImgName(img)}} -->
