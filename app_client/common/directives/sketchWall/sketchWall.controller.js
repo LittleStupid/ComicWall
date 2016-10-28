@@ -2,47 +2,19 @@ angular
   .module('ComicWallApp')
   .controller('sketchWallCtrl', sketchWallCtrl);
 
-  function sketchWallCtrl() {
+  sketchWallCtrl.$inject = ['imageData'];
+  function sketchWallCtrl(imageData) {
     var vm = this;
 
-    vm.imgs = [
-                {
-                  author: '1.jpg',
-                  name: '20003.jpg'
-                },
-                {
-                  author: '2.jpg',
-                  name: '20007.jpg'
-                },
-                {
-                  author: '3.jpg',
-                  name: '20023.jpg'
-                },
-                {
-                  author: '4.jpg',
-                  name: '20025.jpg'
-                },
-                {
-                  author: '5.jpg',
-                  name: '20041.jpg'
-                },
-                {
-                  author: '6.jpg',
-                  name: '20043.jpg'
-                },
-                {
-                  author: '7.jpg',
-                  name: '20045.jpg'
-                },
-                {
-                  author: '8.jpg',
-                  name: '20047.jpg'
-                },
-                {
-                  author: '9.jpg',
-                  name: '20170.jpg'
-                }
-              ];
+    vm.getData = function() {
+      imageData.getAllImages()
+        .success(function(data) {
+          vm.imgs = data;
+        })
+        .error(function(e){
+          console.log(e);
+        });
+    }
 
     function getImgName(fullName) {
       if(!fullName) {
@@ -68,4 +40,6 @@ angular
 
      return '#/imgs/' + getImgName(img.name);
    }
+
+   vm.getData();
   }

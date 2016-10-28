@@ -38,6 +38,29 @@ module.exports.sketchReadOne = function(req, res) {
   }
 };
 
+module.exports.sketchReadOneByName = function(req, res) {
+  if(req.params && req.params.name) {
+    Sketch
+      .findOne( {"name":req.params.name+'.jpg'}, function(err,sketch) {
+        if(!sketch) {
+          sendJsonResponse( res, 404, {
+            "message": "sketch not found"
+          });
+          return ;
+        } else if (err) {
+          sendJsonResponse(res, 404, err);
+          return ;
+        }
+        sendJsonResponse(res, 200, sketch);
+      });
+  } else {
+    sendJsonResponse(res, 404, {
+      "message": "No sketch in request"
+    });
+  }
+};
+
+
 module.exports.sketchReadAll = function(req, res) {
   Sketch.find(function(err,sketches) {
     if(err) {
