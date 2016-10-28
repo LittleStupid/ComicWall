@@ -10,7 +10,8 @@ angular
     vm.getData = function($routeParams) {
       imageData.getImageObj(vm.imgid)
         .success(function(data){
-          vm.header = data.author;
+          vm.header = data.author.header;
+          vm.name = data.author.name;
         })
         .error(function(e){
           console.log(e);

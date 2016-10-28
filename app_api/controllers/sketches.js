@@ -41,18 +41,20 @@ module.exports.sketchReadOne = function(req, res) {
 module.exports.sketchReadOneByName = function(req, res) {
   if(req.params && req.params.name) {
     Sketch
-      .findOne( {"name":req.params.name+'.jpg'}, function(err,sketch) {
-        if(!sketch) {
-          sendJsonResponse( res, 404, {
-            "message": "sketch not found"
+      .findOne( {"name":req.params.name+'.jpg'} )
+      .populate("author")
+      .exec(function(err,sketch) {
+            if(!sketch) {
+              sendJsonResponse( res, 404, {
+                "message": "sketch not found"
+              });
+              return ;
+            } else if (err) {
+              sendJsonResponse(res, 404, err);
+              return ;
+            }
+            sendJsonResponse(res, 200, sketch);
           });
-          return ;
-        } else if (err) {
-          sendJsonResponse(res, 404, err);
-          return ;
-        }
-        sendJsonResponse(res, 200, sketch);
-      });
   } else {
     sendJsonResponse(res, 404, {
       "message": "No sketch in request"
@@ -62,15 +64,17 @@ module.exports.sketchReadOneByName = function(req, res) {
 
 
 module.exports.sketchReadAll = function(req, res) {
-  Sketch.find(function(err,sketches) {
-    if(err) {
-      sendJsonResponse(res, 404, {
-        "message": "no sketches"
-      });
-    } else {
-      sendJsonResponse(res, 200, sketches);
-    }
-  })
+  Sketch.find({})
+    .populate("author")
+    .exec(function(err,sketches) {
+      if(err) {
+        sendJsonResponse(res, 404, {
+          "message": "no sketches"
+        });
+      } else {
+        sendJsonResponse(res, 200, sketches);
+      }
+    });
 };
 
 module.exports.sketchDeleteOne = function(req, res) {
