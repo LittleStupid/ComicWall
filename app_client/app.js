@@ -13,6 +13,11 @@ function config($routeProvider){
       controller: 'imgCtrl',
       controllerAs: 'vm'
     })
+    .when('/authors/:authorId', {
+      templateUrl: 'page/author/author.html',
+      controller: 'authorCtrl',
+      controllerAs: 'vm'
+    })
     .otherwise({
       templateUrl: 'other.html'
     });

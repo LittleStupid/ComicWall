@@ -8,7 +8,7 @@ var sendJsonResponse = function(res, status, content) {
 
 module.exports.authorReadAll = function(req, res) {
   Author.find()
-    .populate("sketches")
+    .populate("authors")
     .exec(function(err,authors) {
       if(err) {
       sendJsonResponse(res, 404, {
@@ -28,4 +28,28 @@ module.exports.authorCreateOne = function(req, res) {
       sendJsonResponse( res, 201, author );
     }
   });
+};
+
+module.exports.authorReadOne = function(req, res) {
+  if(req.params && req.params.authorId) {
+    Author
+      .findById(req.params.authorId)
+      .populate("sketches")
+      .exec(function(err,author) {
+              if(!author) {
+                sendJsonResponse( res, 404, {
+                  "message": "author not found"
+                });
+                return ;
+              } else if (err) {
+                sendJsonResponse(res, 404, err);
+                return ;
+              }
+              sendJsonResponse(res, 200, author);
+            });
+          } else {
+            sendJsonResponse(res, 404, {
+              "message": "No author in request"
+            });
+          }
 };

@@ -14,6 +14,7 @@ angular
           vm.name = data.author.name;
           vm.sketchNum = data.author.sketches.length;
           vm.imgObjId = data._id;
+          vm.authorId = data.author._id;
         })
         .error(function(e){
           console.log(e);
@@ -30,5 +31,5 @@ angular
         });
     }
 
-    vm.getData();
+    vm.getData($routeParams);
   }
