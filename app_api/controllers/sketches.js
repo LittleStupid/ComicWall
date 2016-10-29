@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Sketch = mongoose.model('Sketch');
+var Author = mongoose.model('Author');
 
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
@@ -7,14 +8,47 @@ var sendJsonResponse = function(res, status, content) {
 };
 
 module.exports.sketchCreateOne = function(req, res) {
-  Sketch.create({name: req.body.name}, function(err, sketch) {
+  Sketch.create({name: req.body.name, author: req.body.author},
+                function(err, sketch) {
     if(err) {
       sendJsonResponse( res, 400, err );
     } else {
+      UpdateAuthorSketches(req.body.author, sketch._id);
       sendJsonResponse( res, 201, sketch );
     }
   });
 };
+
+function UpdateAuthorSketches(authorId, sketchId) {
+  if(!authorId) {
+    return false;
+  }
+  if(!sketchId) {
+    return false;
+  }
+
+  Author.findById(authorId, function(err, author){
+    if(!author) {
+      return false;
+    }
+    if(err) {
+      console.log(err);
+      return false;
+    }
+
+    author.sketches.push(sketchId);
+    author.save(function(err,author){
+      if(err) {
+        console.log(err);
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    return false;
+  });
+}
 
 module.exports.sketchReadOne = function(req, res) {
   if(req.params && req.params.id) {
@@ -81,16 +115,19 @@ module.exports.sketchDeleteOne = function(req, res) {
   var id = req.params.id;
   if(id) {
     Sketch
-      .findByIdAndRemove(id, function(err, sketch) {
-        if(err) {
-          sendJsonResponse(res, 404, err);
-          return ;
-        }
-        sendJsonResponse(res, 204, null);
-      });
-  } else {
-    sendJsonResponse(res, 404, {
-      "message": "No sketch"
-    });
-  }
+      .findByIdAndRemove(id)
+      .exec(function(err, sketch) {
+              if(err) {
+                sendJsonResponse(res, 404, err);
+                return ;
+              }
+              sendJsonResponse(res, 204, {
+                "message": "deleted"
+              });
+            });
+          } else {
+            sendJsonResponse(res, 404, {
+              "message": "No sketch"
+            });
+          }
 };

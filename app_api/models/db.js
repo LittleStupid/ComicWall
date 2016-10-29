@@ -41,5 +41,5 @@ process.on('SIGTERM', function() {
   });
 });
 
-require('./authores');
+require('./authors');
 require('./sketches');

@@ -2,8 +2,8 @@ angular
   .module('ComicWallApp')
   .controller('imgCtrl', imgCtrl);
 
-  imgCtrl.$inject = ['$routeParams', 'imageData'];
-  function imgCtrl($routeParams, imageData) {
+  imgCtrl.$inject = ['$routeParams', '$location', 'imageData'];
+  function imgCtrl($routeParams, $location, imageData) {
     var vm = this;
 
     vm.imgid = $routeParams.img;
@@ -12,6 +12,18 @@ angular
         .success(function(data){
           vm.header = data.author.header;
           vm.name = data.author.name;
+          vm.sketchNum = data.author.sketches.length;
+          vm.imgObjId = data._id;
+        })
+        .error(function(e){
+          console.log(e);
+        });
+    }
+
+    vm.remove = function($routeParams) {
+      imageData.deleteImageObj(vm.imgObjId)
+        .success(function(data){
+          $location.path('');
         })
         .error(function(e){
           console.log(e);

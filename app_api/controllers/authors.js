@@ -9,19 +9,19 @@ var sendJsonResponse = function(res, status, content) {
 module.exports.authorReadAll = function(req, res) {
   Author.find()
     .populate("sketches")
-    .exec(function(err,authores) {
+    .exec(function(err,authors) {
       if(err) {
       sendJsonResponse(res, 404, {
         "message": "no author"
       });
       } else {
-        sendJsonResponse(res, 200, authores);
+        sendJsonResponse(res, 200, authors);
       }
     });
 };
 
 module.exports.authorCreateOne = function(req, res) {
-  Author.create({name: req.body.name}, function(err, author) {
+  Author.create({name: req.body.name, header: req.body.header}, function(err, author) {
     if(err) {
       sendJsonResponse( res, 400, err );
     } else {
