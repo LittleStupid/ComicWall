@@ -111,7 +111,43 @@ module.exports.sketchReadAll = function(req, res) {
     });
 };
 
+function delAuthorSketch(authorId, sketchId) {
+  console.log("----------=-=-=-=-=-");
+  if(!authorId){
+    console.log("@@@");
+    return false;
+  }
+
+  if(!sketchId){
+    return false;
+  }
+
+  Author.findById(authorId, function(err, author){
+    if(err){
+      return false;
+    }
+    if(author.sketches.length <= 0) {
+      return true;
+    }
+
+    for( var i = 0; i < author.sketches.length; i++ ){
+      if(author.sketches[i] == sketchId) {
+        author.sketches.splice(i,1);
+        author.save(function(err){
+          if(err){
+            return false;
+          }
+          console.log("PPPPPPPPPPPP SUCCESS QQQQQQQQ");
+          return true;
+        });
+      }
+    }
+  });
+}
+
 module.exports.sketchDeleteOne = function(req, res) {
+  console.log("++++++++++");
+
   var id = req.params.id;
   if(id) {
     Sketch
@@ -121,6 +157,8 @@ module.exports.sketchDeleteOne = function(req, res) {
                 sendJsonResponse(res, 404, err);
                 return ;
               }
+              console.log(sketch.author);
+              delAuthorSketch(sketch.author, id);
               sendJsonResponse(res, 204, {
                 "message": "deleted"
               });
