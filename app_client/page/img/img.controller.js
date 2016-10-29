@@ -15,6 +15,7 @@ angular
           vm.sketchNum = data.author.sketches.length;
           vm.imgObjId = data._id;
           vm.authorId = data.author._id;
+          vm.coverName = data.coverName;
         })
         .error(function(e){
           console.log(e);

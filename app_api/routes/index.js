@@ -5,6 +5,10 @@ var mongoose = require('mongoose');
 // var Sketch = mongoose.model('Sketch');
 var ctrlSketches = require('../controllers/sketches');
 var ctrlAuthors = require('../controllers/authors');
+var ctrlAuth = require('../controllers/authentication');
+
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
 
 router.get('/authors', ctrlAuthors.authorReadAll);
 router.get('/authors/:authorId', ctrlAuthors.authorReadOne)
