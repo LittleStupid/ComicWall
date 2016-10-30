@@ -7,11 +7,12 @@ angular
     var vm = this;
 
     vm.isLoggedIn = authentication.isLoggedIn();
+    vm.user = authentication.currentUser();
 
     vm.logout = function() {
       console.log('logout...');
       authentication.logout();
-      vm.isLoggedIn = authentication.isLoggedIn();
+      // vm.isLoggedIn = authentication.isLoggedIn();
       $location.path('#/');
     };
 
