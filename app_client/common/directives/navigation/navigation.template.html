@@ -19,8 +19,10 @@
         <li><a href="#/">Post</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Register</a></li>
-        <li><a href="#">Login</a></li>
+        <li><a ng-click="vm.popupRegisterForm()" href="">Register</a></li>
+        <li ng-hide="vm.isLoggedIn"><a ng-click="vm.popupLoginForm()" href="">Login</a></li>
+        <li ng-show="vm.isLoggedIn"><a ng-click="vm.logout()" href="">Logout</a></li>
+        <!-- <li>{{vm.isLoggedIn}}</li> -->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

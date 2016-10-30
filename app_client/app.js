@@ -1,4 +1,4 @@
-angular.module('ComicWallApp',['ngRoute']);
+angular.module('ComicWallApp',['ngRoute', 'ui.bootstrap']);
 
 function config($routeProvider){
   $routeProvider
