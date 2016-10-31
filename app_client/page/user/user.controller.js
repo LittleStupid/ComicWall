@@ -36,11 +36,7 @@ angular
        return "";
      }
 
-     if(!img.name) {
-       return "";
-     }
-
-     return '#/imgs/' + getImgName(img.name);
+     return '#/imgs/' + img._id;
    }
 
     vm.getData($routeParams);

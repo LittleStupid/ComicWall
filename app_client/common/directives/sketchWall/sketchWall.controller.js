@@ -16,30 +16,39 @@ angular
         });
     }
 
-    function getImgName(fullName) {
-      if(!fullName) {
-        return "0";
-      }
-
-      var index = fullName.indexOf('.jpg');
-      if( index <= 0 ) {
-        return "0";
-      }
-
-      return fullName.substr(0,index);
-   };
+  //   function getImgName(fullName) {
+  //     if(!fullName) {
+  //       return "0";
+  //     }
+   //
+  //     var index = fullName.indexOf('.jpg');
+  //     if( index <= 0 ) {
+  //       return "0";
+  //     }
+   //
+  //     return fullName.substr(0,index);
+  //  };
+   //
+  //  vm.getImgUrl = function(img) {
+  //    if(!img) {
+  //      return "";
+  //    }
+   //
+  //    if(!img.name) {
+  //      return "";
+  //    }
+   //
+  //    return '#/imgs/' + getImgName(img.name);
+  //  }
 
    vm.getImgUrl = function(img) {
      if(!img) {
        return "";
      }
 
-     if(!img.name) {
-       return "";
-     }
-
-     return '#/imgs/' + getImgName(img.name);
+     return '#/imgs/' + img._id;
    }
+
 
    vm.getData();
   }

@@ -18,5 +18,6 @@ router.post('/sketches', ctrlSketches.sketchCreateOne);
 router.get('/sketches/name/:name', ctrlSketches.sketchReadOneByName);
 router.get('/sketches/:id', ctrlSketches.sketchReadOne);
 router.delete('/sketches/:id', ctrlSketches.sketchDeleteOne);
+router.put('/sketches/:id', ctrlSketches.sketchUpdateOne);
 
 module.exports = router;

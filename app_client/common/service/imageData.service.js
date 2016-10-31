@@ -10,16 +10,21 @@ function imageData($http) {
   };
 
   var getImageObj = function(img) {
-    return $http.get('api/sketches/name/' + img);
-  }
+    return $http.get('api/sketches/' + img);
+  };
+
+  var updateImageObj = function(img, data) {
+    return  $http.put('api/sketches/' + img, data);
+  };
 
   var deleteImageObj = function(img) {
     return $http.delete('api/sketches/' + img);
-  }
+  };
 
   return {
     getAllImages: getAllImages,
     getImageObj: getImageObj,
-    deleteImageObj: deleteImageObj
+    deleteImageObj: deleteImageObj,
+    updateImageObj: updateImageObj
   };
 };
