@@ -14,6 +14,7 @@
 <div class="row">
   <div class="col-xs-12">
     <h2 class="text-center">{{vm.coverName}}</h2>
+    <h3 class="text-center">Rating: {{vm.rating}}</h3>
   </div>
   <div class="col-xs-12">
     <img src="/img/{{vm.imgid}}.jpg" alt="" class="img-thumbnail center-block">
@@ -22,6 +23,9 @@
     <center>
       <button ng-click="vm.remove()" type="button" class="btn btn-default btn-lg">
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+      </button>
+      <button type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Upvote
       </button>
     </center>
   </div>
