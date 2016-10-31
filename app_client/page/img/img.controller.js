@@ -16,6 +16,7 @@ angular
           vm.imgObjId = data._id;
           vm.userId = data.user._id;
           vm.coverName = data.coverName;
+          console.log(data);
         })
         .error(function(e){
           console.log(e);

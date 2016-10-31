@@ -8,7 +8,7 @@ var sendJsonResponse = function(res, status, content) {
 };
 
 module.exports.sketchCreateOne = function(req, res) {
-  Sketch.create({name: req.body.name, user: req.body.user},
+  Sketch.create({name: req.body.name, user: req.body.user, coverName: req.body.coverName},
                 function(err, sketch) {
     if(err) {
       sendJsonResponse( res, 400, err );
