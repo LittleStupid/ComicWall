@@ -1,17 +1,17 @@
 angular
   .module('ComicWallApp')
-  .controller('authorCtrl', authorCtrl);
+  .controller('userCtrl', userCtrl);
 
-  authorCtrl.$inject = ['$routeParams', 'authorData'];
-  function authorCtrl($routeParams, authorData) {
+  userCtrl.$inject = ['$routeParams', 'userData'];
+  function userCtrl($routeParams, userData) {
     var vm = this;
 
-    vm.authorId = $routeParams.authorId;
+    vm.userId = $routeParams.userId;
 
     vm.getData = function($routeParams) {
-      authorData.getAuthorInfo(vm.authorId)
+      userData.getuserInfo(vm.userId)
         .success(function(data){
-          vm.authorInfo = data;
+          vm.userInfo = data;
         })
         .error(function(e){
           console.log(e);

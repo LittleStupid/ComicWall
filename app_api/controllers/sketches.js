@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Sketch = mongoose.model('Sketch');
-var Author = mongoose.model('Author');
+var User = mongoose.model('User');
 
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
@@ -8,27 +8,27 @@ var sendJsonResponse = function(res, status, content) {
 };
 
 module.exports.sketchCreateOne = function(req, res) {
-  Sketch.create({name: req.body.name, author: req.body.author},
+  Sketch.create({name: req.body.name, user: req.body.user},
                 function(err, sketch) {
     if(err) {
       sendJsonResponse( res, 400, err );
     } else {
-      UpdateAuthorSketches(req.body.author, sketch._id);
+      UpdateUserSketches(req.body.user, sketch._id);
       sendJsonResponse( res, 201, sketch );
     }
   });
 };
 
-function UpdateAuthorSketches(authorId, sketchId) {
-  if(!authorId) {
+function UpdateUserSketches(userId, sketchId) {
+  if(!userId) {
     return false;
   }
   if(!sketchId) {
     return false;
   }
 
-  Author.findById(authorId, function(err, author){
-    if(!author) {
+  User.findById(userId, function(err, user){
+    if(!user) {
       return false;
     }
     if(err) {
@@ -36,8 +36,8 @@ function UpdateAuthorSketches(authorId, sketchId) {
       return false;
     }
 
-    author.sketches.push(sketchId);
-    author.save(function(err,author){
+    user.sketches.push(sketchId);
+    user.save(function(err,user){
       if(err) {
         console.log(err);
         return false;
@@ -76,7 +76,7 @@ module.exports.sketchReadOneByName = function(req, res) {
   if(req.params && req.params.name) {
     Sketch
       .findOne( {"name":req.params.name+'.jpg'} )
-      .populate("author")
+      .populate("user")
       .exec(function(err,sketch) {
             if(!sketch) {
               sendJsonResponse( res, 404, {
@@ -99,7 +99,7 @@ module.exports.sketchReadOneByName = function(req, res) {
 
 module.exports.sketchReadAll = function(req, res) {
   Sketch.find({})
-    .populate("author")
+    .populate("user")
     .exec(function(err,sketches) {
       if(err) {
         sendJsonResponse(res, 404, {
@@ -111,10 +111,8 @@ module.exports.sketchReadAll = function(req, res) {
     });
 };
 
-function delAuthorSketch(authorId, sketchId) {
-  console.log("----------=-=-=-=-=-");
-  if(!authorId){
-    console.log("@@@");
+function delUserSketch(userId, sketchId) {
+  if(!userId){
     return false;
   }
 
@@ -122,22 +120,21 @@ function delAuthorSketch(authorId, sketchId) {
     return false;
   }
 
-  Author.findById(authorId, function(err, author){
+  User.findById(userId, function(err, user){
     if(err){
       return false;
     }
-    if(author.sketches.length <= 0) {
+    if(user.sketches.length <= 0) {
       return true;
     }
 
-    for( var i = 0; i < author.sketches.length; i++ ){
-      if(author.sketches[i] == sketchId) {
-        author.sketches.splice(i,1);
-        author.save(function(err){
+    for( var i = 0; i < user.sketches.length; i++ ){
+      if(user.sketches[i] == sketchId) {
+        user.sketches.splice(i,1);
+        user.save(function(err){
           if(err){
             return false;
           }
-          console.log("PPPPPPPPPPPP SUCCESS QQQQQQQQ");
           return true;
         });
       }
@@ -146,8 +143,6 @@ function delAuthorSketch(authorId, sketchId) {
 }
 
 module.exports.sketchDeleteOne = function(req, res) {
-  console.log("++++++++++");
-
   var id = req.params.id;
   if(id) {
     Sketch
@@ -157,8 +152,8 @@ module.exports.sketchDeleteOne = function(req, res) {
                 sendJsonResponse(res, 404, err);
                 return ;
               }
-              console.log(sketch.author);
-              delAuthorSketch(sketch.author, id);
+              console.log(sketch.user);
+              delUserSketch(sketch.user, id);
               sendJsonResponse(res, 204, {
                 "message": "deleted"
               });

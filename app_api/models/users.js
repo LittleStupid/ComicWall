@@ -1,17 +1,13 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
+  email: { type: String, unique: true, required: true },
+  name: { type: String, required: true},
+  header: { type: String, default: "0.jpg" },
+  sketches : [{ type: Schema.Types.ObjectId, ref: 'Sketch' }],
   hash: String,
   salt: String
 });

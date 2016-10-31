@@ -13,9 +13,9 @@ function config($routeProvider){
       controller: 'imgCtrl',
       controllerAs: 'vm'
     })
-    .when('/authors/:authorId', {
-      templateUrl: 'page/author/author.html',
-      controller: 'authorCtrl',
+    .when('/users/:userId', {
+      templateUrl: 'page/user/user.html',
+      controller: 'userCtrl',
       controllerAs: 'vm'
     })
     .otherwise({

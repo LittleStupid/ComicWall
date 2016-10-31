@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-xs-4 col-sm-4">
-    <img src="/header/{{vm.authorInfo.header}}" alt="header" class="img-circle">
+    <img src="/header/{{vm.userInfo.header}}" alt="header" class="img-circle">
   </div>
 </div>
 
 <div row>
-  <div ng-repeat="img in vm.authorInfo.sketches" class="col-xs-6 col-sm-4 col-md-3">
+  <div ng-repeat="img in vm.userInfo.sketches" class="col-xs-6 col-sm-4 col-md-3">
     <a href={{vm.getImgUrl(img)}}>
       <img src="/prevImg/{{img.name}}" alt="" class="img-thumbnail" height="180" width="180">
     </a>

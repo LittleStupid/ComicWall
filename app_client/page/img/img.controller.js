@@ -10,11 +10,11 @@ angular
     vm.getData = function($routeParams) {
       imageData.getImageObj(vm.imgid)
         .success(function(data){
-          vm.header = data.author.header;
-          vm.name = data.author.name;
-          vm.sketchNum = data.author.sketches.length;
+          vm.header = data.user.header;
+          vm.name = data.user.name;
+          vm.sketchNum = data.user.sketches.length;
           vm.imgObjId = data._id;
-          vm.authorId = data.author._id;
+          vm.userId = data.user._id;
           vm.coverName = data.coverName;
         })
         .error(function(e){
