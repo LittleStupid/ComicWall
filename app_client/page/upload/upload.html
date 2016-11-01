@@ -1,0 +1,14 @@
+<h1>Upload Page</h1>
+
+<div class="col-lg-9" ng-controller="uploadCtrl">
+    <form>
+        <div class="form-group">
+            <label>Browse for Picture</label>
+               <!-- add ng-model directive -->
+            <input type="text" placeholder="请输入您的名称" name="name" ng-model="username"/>
+            <input file-model="file.src" type="file" name="file" style="display:none" 
+                   id="file" onchange="angular.element(this).scope().fileChange(this)"></input>
+        </div>
+        <button class="btn btn-md" ng-click="uploadPicture()">Upload Picture</button>
+    </form>
+</div>

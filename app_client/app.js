@@ -8,6 +8,11 @@ function config($routeProvider){
     .when('/about',{
       templateUrl: 'about.html'
     })
+    .when('/upload',{
+      templateUrl: 'page/upload/upload.html',
+      controller: 'uploadCtrl',
+      controllerAs: 'vm'
+    })
     .when('/imgs/:imgId', {
       templateUrl: 'page/img/img.html',
       controller: 'imgCtrl',

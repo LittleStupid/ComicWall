@@ -1,1 +1,3 @@
 # ComicWall
+
+I am giving up angular...

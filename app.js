@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var multer = require('multer');
+var upload = multer({dest:'uploads/'});
 
 require('./app_api/models/db');
 require('./app_api/config/passport');
@@ -36,6 +38,11 @@ app.use(passport.initialize());
 // app.use('/', routes);
 // app.use('/users', users);
 app.use('/api', routesApi);
+
+app.post('/profile', upload.single('avatar'), function (req, res, next) {
+  console.log("POST FILE");
+  next();
+});
 
 app.use(function(req, res) {
   res.sendfile(path.join(__dirname, 'app_client', 'index.html'));
