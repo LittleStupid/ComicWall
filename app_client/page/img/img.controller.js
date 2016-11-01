@@ -36,7 +36,7 @@ angular
     };
 
     vm.remove = function($routeParams) {
-      imageData.deleteImageObj(vm.imgObjId)
+      imageData.deleteImageObj(vm.imgId)
         .success(function(data){
           $location.path('');
         })
