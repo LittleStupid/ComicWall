@@ -1,23 +1,23 @@
 <div class="row">
   <div class="col-xs-4 col-sm-4">
-    <a href="#/users/{{vm.userId}}">
-      <img src="/header/{{vm.header}}" alt="header" class="img-thumbnail">
+    <a href="#/users/{{vm.data.user._id}}">
+      <img src="/header/{{vm.data.user.header}}" alt="header" class="img-thumbnail">
     </a>
   </div>
   <div class="col-xs-4 col-sm-4">
-    <span>Shetch Number: {{vm.sketchNum}}</span>
-    <span>Name: {{vm.name}}</span>
+    <span>Shetch Number: {{vm.data.user.sketches.length}}</span>
+    <span>Name: {{vm.data.user.name}}</span>
     <p>Do you like me?</p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12">
-    <h2 class="text-center">{{vm.coverName}}</h2>
-    <h3 class="text-center">Rating: {{vm.rating}}</h3>
+    <h2 class="text-center">{{vm.data.coverName}}</h2>
+    <h3 class="text-center">Rating: {{vm.data.rating}}</h3>
   </div>
   <div class="col-xs-12">
-    <img src="/img/{{vm.imgName}}" alt="" class="img-thumbnail center-block">
+    <img src="/img/{{vm.data.name}}" alt="" class="img-thumbnail center-block">
   </div>
   <div class="col-xs-12">
     <center>
@@ -29,9 +29,21 @@
       </button>
     </center>
   </div>
-</div>
+  <div ng-repeat="comment in vm.data.comments" class="col-xs-12">
+    <div class="well well-sm">
+      <p>{{comment.content}}</p>
+      <p class="text-right">---{{comment.name}}---</p>
+    </div>
+  </div>
 
-<!--
-<span class="glyphicon glyphicon-star-empty"></span>
-<span class="glyphicon glyphicon-star-empty"></span>
-<span class="glyphicon glyphicon-star-empty"></span> -->
+  <div class="form-group">
+      <p>{{vm.review}}</p>
+      <div class="col-xs-10">
+        <textarea ng-model="vm.review" id="review" name="review" rows="2" required="required" ng-model="vm.formData.reviewText" class="form-control"></textarea>
+      </div>
+      <button ng-click="vm.submitReview()" type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Submit
+      </button>
+    </div>
+  </div>
+</div>

@@ -179,3 +179,34 @@ module.exports.sketchUpdateOne = function(req, res) {
     });
   }
 };
+
+module.exports.sketchAddComment = function(req, res) {
+  var id = req.params.id;
+  if(!id){
+    return ;
+  }
+
+  name = req.body.name;
+  content = req.body.content;
+  if(!name) {
+    return ;
+  }
+  if(!content) {
+    return ;
+  }
+
+  Sketch.findById(id, function(err, sketch){
+    if(err) {
+      sendJsonResponse(res, 404, err);
+    } else {
+      sketch.comments.push({"name":name, "content": content});
+      sketch.save(function(err, sketch){
+        if(err) {
+          sendJsonResponse(res, 404, err);
+        } else {
+          sendJsonResponse(res, 200, sketch);
+        }
+      });
+    }
+  });
+};

@@ -17,6 +17,10 @@ function imageData($http) {
     return  $http.put('api/sketches/' + img, data);
   };
 
+  var addImageReview = function(img, data) {
+    return $http.put('api/sketches/' + img + '/comments', data);
+  };
+
   var deleteImageObj = function(img) {
     return $http.delete('api/sketches/' + img);
   };
@@ -25,6 +29,7 @@ function imageData($http) {
     getAllImages: getAllImages,
     getImageObj: getImageObj,
     deleteImageObj: deleteImageObj,
-    updateImageObj: updateImageObj
+    updateImageObj: updateImageObj,
+    addImageReview: addImageReview
   };
 };

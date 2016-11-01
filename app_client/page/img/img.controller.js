@@ -2,24 +2,32 @@ angular
   .module('ComicWallApp')
   .controller('imgCtrl', imgCtrl);
 
-  imgCtrl.$inject = ['$routeParams', '$location', 'imageData'];
-  function imgCtrl($routeParams, $location, imageData) {
+  imgCtrl.$inject = ['$routeParams', '$location', 'imageData', 'authentication'];
+  function imgCtrl($routeParams, $location, imageData, authentication) {
     var vm = this;
 
-    vm.imgid = $routeParams.imgId;
+    vm.imgId = $routeParams.imgId;
     vm.getData = function($routeParams) {
-      console.log(vm);
-      imageData.getImageObj(vm.imgid)
+      imageData.getImageObj(vm.imgId)
         .success(function(data){
-          console.log(data);
-          vm.header = data.user.header;
-          vm.name = data.user.name;
-          vm.sketchNum = data.user.sketches.length;
-          vm.imgObjId = data._id;
-          vm.imgName = data.name;
-          vm.userId = data.user._id;
-          vm.coverName = data.coverName;
-          vm.rating = data.rating;
+          // console.log(data);
+          vm.data = data;
+        })
+        .error(function(e){
+        });
+    };
+
+    vm.submitReview = function() {
+      var commentAuthor = "commenter";
+      if(authentication.currentUser()) {
+        commentAuthor = authentication.currentUser().name;
+      }
+      var reviewData = {"name": commentAuthor, "content": vm.review};
+      imageData.addImageReview(vm.imgId, reviewData)
+        .success(function(data){
+          vm.data.comments = data.comments;
+          vm.review = "";
+          // console.log("success");
           // console.log(data);
         })
         .error(function(e){
@@ -33,20 +41,17 @@ angular
           $location.path('');
         })
         .error(function(e){
-          // console.log(e);
         });
     };
 
     vm.update = function() {
-      var updateData = {'rating': vm.rating + 1};
+      var updateData = {'rating': vm.data.rating + 1};
 
-      imageData.updateImageObj(vm.imgObjId, updateData)
+      imageData.updateImageObj(vm.data._id, updateData)
         .success(function(data){
-          // console.log(data);
-          vm.rating = data.rating;
+          vm.data.rating = data.rating;
         })
         .error(function(e){
-          // console.log(e);
         });
     };
 

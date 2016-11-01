@@ -19,5 +19,6 @@ router.get('/sketches/name/:name', ctrlSketches.sketchReadOneByName);
 router.get('/sketches/:id', ctrlSketches.sketchReadOne);
 router.delete('/sketches/:id', ctrlSketches.sketchDeleteOne);
 router.put('/sketches/:id', ctrlSketches.sketchUpdateOne);
+router.put('/sketches/:id/comments', ctrlSketches.sketchAddComment);
 
 module.exports = router;
