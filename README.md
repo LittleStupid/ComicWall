@@ -1,5 +1,5 @@
 # ComicWall
 
-I am giving up angular...
+I am giving up with angular...
 
 ![](giveup.jpeg)
